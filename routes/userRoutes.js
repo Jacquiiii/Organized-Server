@@ -3,7 +3,7 @@ const express = require('express')
 const router  = express.Router()
 
 // Internal Helper function
-const db = require('../../db/connection')
+const db = require('../db/connection')
 
 // Get list of all users
 router.get('/', (req, res) => {
@@ -12,7 +12,6 @@ router.get('/', (req, res) => {
   db.query(userQuery)
   .then(data => {
     const userData = data.rows;
-    console.log(data)
     res.json({userData})
   })
   .catch( err => {

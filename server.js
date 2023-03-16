@@ -18,10 +18,10 @@ app.get('/', (req, res) => {
 })
 
 // Separated Routes for each Resource
-const userRoutes = require('./routes/userRoutes');
+const userRoutes = require('./routes/userRoutes')
 
 // Mount all resource routes
-app.use( '/users', userRoutes );
+app.use( '/users', userRoutes )
 
 app.listen(port, () => {
   console.log(`app is listening on port ${ port }`)

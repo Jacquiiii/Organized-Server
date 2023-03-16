@@ -2,6 +2,25 @@
   "dependencies": {
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "morgan": "^1.10.0"
-  }
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.21",
+    "pg": "^8.10.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "organized-server",
+  "description": "",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jacquiiii/Organized-Server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jacquiiii/Organized-Server/issues"
+  },
+  "homepage": "https://github.com/Jacquiiii/Organized-Server#readme"
 }
