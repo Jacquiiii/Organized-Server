@@ -5,14 +5,14 @@ const router = express.Router()
 // Helper functions
 const db = require('../db/connection')
 
-// Get list of all users
+// Get list of all tasks
 router.get('/', (req, res) => {
-  const usersQuery = `SELECT * FROM users;`
+  const tasksQuery = `SELECT * FROM tasks;`
 
-  db.query(usersQuery)
+  db.query(tasksQuery)
     .then(data => {
-      const usersData = data.rows;
-      res.json({ usersData })
+      const tasksData = data.rows;
+      res.json({ tasksData })
     })
     .catch(err => {
       res
@@ -21,17 +21,18 @@ router.get('/', (req, res) => {
     })
 })
 
-// Get user by email
-router.get('/:email', (req, res) => {
-  const userEmailQuery = `
-    SELECT * FROM users 
-    WHERE email = $1;
+// Get tasks by user id
+router.get('/:id', (req, res) => {
+
+  const userTasksQuery = `
+    SELECT * FROM tasks 
+    WHERE user_id = ${req.params.id};
   `
 
-  db.query(userEmailQuery, [req.params.email])
+  db.query(userTasksQuery)
     .then(data => {
-      const userData = data.rows[0];
-      res.json({ userData })
+      const userTasks = data.rows;
+      res.json({ userTasks })
     })
     .catch(err => {
       res
