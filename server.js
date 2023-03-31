@@ -1,12 +1,14 @@
-// load .env data into process.env
-require('dotenv').config()
-
-//External Imports
+// External Imports
 const express = require('express')
 const morgan = require('morgan')
+const http = require('http');
 
 const app = express()
+const server = http.createServer(app);
 const port = process.env.PORT || 54321
+
+// DB code
+const db = require('./db')
 
 // Middleware
 app.use( morgan('dev'))
@@ -28,6 +30,17 @@ const taskRoutes = require('./routes/taskRoutes')
 // Mount all resource routes
 app.use( '/users', userRoutes )
 app.use( '/tasks', taskRoutes )
+
+// Closes db on server close
+server.on('close', () => {
+  db.close((err) => {
+    if (err) {
+      console.error(err.message);
+    } else {
+      console.log('SQLite connection closed.');
+    }
+  });
+});
 
 app.listen(port, () => {
   console.log(`app is listening on port ${ port }`)

@@ -1,43 +1,29 @@
-// External Imports
-const express = require('express')
-const router = express.Router()
-
-// Helper functions
-const db = require('../db/connection')
+const express = require('express');
+const router = express.Router();
+const db = require('../db');
 
 // Get list of all users
 router.get('/', (req, res) => {
-  const usersQuery = `SELECT * FROM users;`
+  const usersQuery = `SELECT * FROM users;`;
 
-  db.query(usersQuery)
-    .then(data => {
-      const usersData = data.rows;
-      res.json({ usersData })
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .json({ error: err.message })
-    })
-})
+  db.all(usersQuery, [], (err, rows) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.json({ usersData: rows });
+  });
+});
 
 // Get user by email
 router.get('/:email', (req, res) => {
-  const userEmailQuery = `
-    SELECT * FROM users 
-    WHERE email = $1;
-  `
+  const userEmailQuery = `SELECT * FROM users WHERE email = ?;`;
 
-  db.query(userEmailQuery, [req.params.email])
-    .then(data => {
-      const userData = data.rows[0];
-      res.json({ userData })
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .json({ error: err.message })
-    })
-})
+  db.get(userEmailQuery, [req.params.email], (err, row) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.json({ userData: row });
+  });
+});
 
-module.exports = router
+module.exports = router;
