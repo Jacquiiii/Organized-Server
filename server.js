@@ -1,11 +1,15 @@
 // External Imports
 const express = require('express')
 const morgan = require('morgan')
-const http = require('http');
+const http = require('http')
+const cors = require('cors')
 
 const app = express()
 const server = http.createServer(app);
 const port = process.env.PORT || 54321
+
+// Enable CORS for all requests
+app.use(cors())
 
 // DB code
 const db = require('./db')

@@ -36,4 +36,23 @@ router.get('/:id', (req, res) => {
   })
 })
 
+// Create a new task
+router.post('/', (req, res) => {
+  const { description, category, user_id } = req.body;
+
+  const insertTaskQuery = `
+    INSERT INTO tasks (description, category, user_id)
+    VALUES (?, ?, ?);
+  `
+
+  db.run(insertTaskQuery, [description, category, user_id], function(err) {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.json({ task: { id: this.lastID, description, category, user_id } });
+    }
+  })
+})
+
+
 module.exports = router
