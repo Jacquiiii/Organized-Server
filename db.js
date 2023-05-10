@@ -32,10 +32,10 @@ db.serialize(() => {
 
   // Insert data into tasks table
   const taskStmt = db.prepare('INSERT INTO tasks (id, user_id, description, category) VALUES (?, ?, ?, ?)')
-  taskStmt.run(1, 1, 'Task 1 for John', 'Category A')
-  taskStmt.run(2, 1, 'Task 2 for John', 'Category B')
-  taskStmt.run(3, 2, 'Task 1 for Jane', 'Category A')
-  taskStmt.run(4, 2, 'Task 2 for Jane', 'Category B')
+  taskStmt.run(1, 1, 'Buy Tomatoes', 'Buy')
+  taskStmt.run(2, 1, 'Watch Harry Potter', 'Watch')
+  taskStmt.run(3, 2, 'Buy Tomatoes', 'Buy')
+  taskStmt.run(4, 2, 'Watch Harry Potter', 'Watch')
   taskStmt.finalize()
 })
 
